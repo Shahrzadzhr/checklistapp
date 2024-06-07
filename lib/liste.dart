@@ -12,41 +12,6 @@ class _ItemListScreenState extends State<ItemListScreen> {
   final List<String> _items = [];
 
   @override
-  void initState() {
-    super.initState();
-    _loadItems();
-  }
-
-  Future<void> _loadItems() async {
-    final prefs = await SharedPreferences.getInstance();
-    final List<String>? savedItems = prefs.getStringList('items');
-    if (savedItems != null) {
-      setState(() {
-        _items.addAll(savedItems);
-      });
-    }
-  }
-
-  Future<void> _addItem() async {
-    if (_textController.text.isNotEmpty) {
-      setState(() {
-        _items.add(_textController.text);
-      });
-      _textController.clear();
-      final prefs = await SharedPreferences.getInstance();
-      prefs.setStringList('items', _items);
-    }
-  }
-
-  Future<void> _removeItem(int index) async {
-    setState(() {
-      _items.removeAt(index);
-    });
-    final prefs = await SharedPreferences.getInstance();
-    prefs.setStringList('items', _items);
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
